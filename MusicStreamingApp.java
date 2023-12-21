@@ -1,51 +1,11 @@
-import java.util.ArrayList;
-import java.util.List;
-
-class MusicTrack {
-    private String title;
-
-    public MusicTrack(String title) {
-        this.title = title;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-}
-
-class MusicPlayer {
-    private List<MusicTrack> playlist;
-    private int currentTrackIndex;
-
-    public MusicPlayer() {
-        this.playlist = new ArrayList<>();
-        this.currentTrackIndex = 0;
-    }
-
-    public void addTrack(MusicTrack track) {
-        playlist.add(track);
-    }
-
-    public void play() {
-        if (playlist.isEmpty()) {
-            System.out.println("Playlist is empty. Add tracks first.");
-            return;
-        }
-
-        // Simulate playing the current track
-        MusicTrack currentTrack = playlist.get(currentTrackIndex);
-        System.out.println("Playing: " + currentTrack.getTitle());
-
-        // Increment the index for the next track
-        currentTrackIndex = (currentTrackIndex + 1) % playlist.size();
-    }
-}
-
 class StreamingService {
     private MusicPlayer musicPlayer;
+    private int iterationCounter;
+    private final int MAX_ITERATIONS = 3;
 
     public StreamingService() {
         this.musicPlayer = new MusicPlayer();
+        this.iterationCounter = 0;
     }
 
     public void addTrackToPlaylist(String trackTitle) {
@@ -56,7 +16,7 @@ class StreamingService {
 
     public void startStreaming() {
         Thread playbackThread = new Thread(() -> {
-            while (true) {
+            while (iterationCounter < MAX_ITERATIONS) {
                 musicPlayer.play();
 
                 try {
@@ -65,6 +25,8 @@ class StreamingService {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
+
+                iterationCounter++;
             }
         });
 
@@ -81,8 +43,7 @@ public class MusicStreamingApp {
         streamingService.addTrackToPlaylist("Track 2");
         streamingService.addTrackToPlaylist("Track 3");
 
-        // Start the streaming service (multithreaded playback)
+        // Start the streaming service (multithreaded playback) for a limited number of iterations
         streamingService.startStreaming();
     }
 }
-
