@@ -1,9 +1,48 @@
-class StreamingService {
+import java.util.ArrayList;
+import java.util.List;
+
+class MusicTrack {
+    private String title;
+
+    public MusicTrack(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+}
+
+class MusicPlayer {
+    private List<MusicTrack> playlist;
+    private int currentTrackIndex;
+
+    public MusicPlayer() {
+        this.playlist = new ArrayList<>();
+        this.currentTrackIndex = 0;
+    }
+
+    public void addTrack(MusicTrack track) {
+        playlist.add(track);
+    }
+
+    public void play() {
+        if (currentTrackIndex < playlist.size()) {
+            MusicTrack currentTrack = playlist.get(currentTrackIndex);
+            System.out.println("Now playing: " + currentTrack.getTitle());
+            currentTrackIndex++;
+        } else {
+            System.out.println("End of playlist");
+        }
+    }
+}
+
+public class MusicStreamingApp {
     private MusicPlayer musicPlayer;
     private int iterationCounter;
     private final int MAX_ITERATIONS = 3;
 
-    public StreamingService() {
+    public MusicStreamingApp() {
         this.musicPlayer = new MusicPlayer();
         this.iterationCounter = 0;
     }
@@ -21,7 +60,7 @@ class StreamingService {
 
                 try {
                     // Simulate a delay between tracks
-                    Thread.sleep(2000);
+                    Thread.sleep(3000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -32,11 +71,9 @@ class StreamingService {
 
         playbackThread.start();
     }
-}
 
-public class MusicStreamingApp {
     public static void main(String[] args) {
-        StreamingService streamingService = new StreamingService();
+        MusicStreamingApp streamingService = new MusicStreamingApp();
 
         // Add some tracks to the playlist
         streamingService.addTrackToPlaylist("Track 1");
