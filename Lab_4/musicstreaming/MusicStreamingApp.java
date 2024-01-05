@@ -9,7 +9,7 @@ import musicstreaming.service.MusicPlayer;
 public class MusicStreamingApp {
     public static void main(String[] args) {
         // Create a song
-        Song song = new Song("Example Song", "Artist");
+        Song song = new Song("Nonstop ", "Drake");
 
         // Create a music player
         MusicPlayer musicPlayer = new MusicPlayer();
