@@ -5,15 +5,22 @@ import java.util.Scanner;
 
 // Structure for a song
 class Song {
-    String title;
-    String artist;
+    private String title;
+    private String artist;
 
     public Song(String title, String artist) {
         this.title = title;
         this.artist = artist;
     }
 
-    // Getters and setters (or public fields) can be added as needed
+    // Getter methods for accessing private fields
+    public String getTitle() {
+        return title;
+    }
+
+    public String getArtist() {
+        return artist;
+    }
 }
 
 public class Lab_Exercise7 {
@@ -45,18 +52,18 @@ public class Lab_Exercise7 {
 
         // Sort songs based on user input
         if (sortingChoice == 1) {
-            songs.sort(Comparator.comparing(s -> s.title));
+            songs.sort(Comparator.comparing(Song::getTitle));
         } else if (sortingChoice == 2) {
-            songs.sort(Comparator.comparing(s -> s.artist));
+            songs.sort(Comparator.comparing(Song::getArtist));
         } else {
             System.out.println("Invalid sorting choice. Defaulting to sorting by title.");
-            songs.sort(Comparator.comparing(s -> s.title));
+            songs.sort(Comparator.comparing(Song::getTitle));
         }
 
         // Display sorted songs
         System.out.println("\nSorted Songs:");
         for (Song song : songs) {
-            System.out.println("Title: " + song.title + ", Artist: " + song.artist);
+            System.out.println("Title: " + song.getTitle() + ", Artist: " + song.getArtist());
         }
 
         // Close the scanner
